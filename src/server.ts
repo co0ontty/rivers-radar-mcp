@@ -12,7 +12,7 @@ function getEnv() {
 export function createServer(): McpServer {
   const server = new McpServer({
     name: "百川网站安全监测",
-    version: "0.1.1",
+    version: "0.1.2",
   });
 
   server.tool(
