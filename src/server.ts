@@ -58,20 +58,24 @@ export function createServer(): McpServer {
   );
 
   server.tool(
-    "网站列表查看",
+    "网站列表数据查看",
     "获取长亭百川网站安全监测应用中指定分组下的网站详情列表及状态的缩略信息。注意：使用此工具前，请先执行'分组列表获取'工具以获取有效的分组ID。父节点 ID 查询的数据包含子节点的信息，无需重复执行子节点查询。",
     {
-      params: z.object({
         group_id: z.string().describe("分组ID - 需要从'分组列表获取'工具的返回结果中获取"),
-      }),
     },
-    async ({params}) => {
+    async ({group_id}) => {
       const org_info = getEnv();
       if (!org_info) {
         throw new Error("rivers token is required.");
       }
+      
+      // 参数校验
+      if (!group_id) {
+        throw new Error("分组ID不能为空，请先执行'分组列表获取'工具获取有效的分组ID");
+      }
+
       const detail_info = {} as Record<string, any>;
-      detail_info[org_info.orgName] = await getGroupDetailList(params.group_id, org_info.orgToken);
+      detail_info[org_info.orgName] = await getGroupDetailList(group_id.toString(), org_info.orgToken);
         
       return {
         content: [
