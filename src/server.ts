@@ -3,8 +3,8 @@ import { z } from "zod";
 import { getOrgList, getGroupDetailList, getSpaceDetail } from "./radar/api.js";
 
 function getEnv() {
-  const orgToken = process.env.RIVERS_ORG_TOKENS || "";
-  const orgName = process.env.RIVERS_ORG_NAMES || "未命名空间";
+  const orgToken = process.env.RIVERS_ORG_TOKEN || "";
+  const orgName = process.env.RIVERS_ORG_NAME || "未命名空间";
   
   return {"orgToken":orgToken, "orgName":orgName};
 }

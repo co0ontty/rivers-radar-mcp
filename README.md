@@ -44,7 +44,7 @@ Based on large language models, provides data querying, analysis and operation c
             "rivers-radar-mcp"
         ],
         "env": {
-            "RIVERS_ORG_TOKENS": ""
+            "RIVERS_ORG_TOKEN": ""
         }
         }
     }
