@@ -12,12 +12,12 @@ function getEnv() {
 export function createServer(): McpServer {
   const server = new McpServer({
     name: "百川网站安全监测",
-    version: "0.1.2",
+    version: "0.1.3",
   });
 
   server.tool(
     "系统配置信息查看",
-    "查看百川网站安全监测应用的系统配置信息,如ID、授权、余额、套餐状态、系统设置等,这些信息可用于其他工具的输入参数。", 
+    "查看百川网站安全监测应用的系统配置信息,如ID、授权、余额、套餐状态、系统设置等,这些信息可用于其他工具的输入参数。其中金额单位是分，货币是人民币。", 
     async () => {
       const org_info = getEnv();
       if (!org_info) {
