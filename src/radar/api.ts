@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { getAlertInfoById } from './utils.js';
 import { get } from 'http';
+import { stat } from 'fs';
 
 interface ApiConfig {
     baseURL?: string;
@@ -8,7 +9,7 @@ interface ApiConfig {
 }
 
 interface RequestParams {
-    [key: string]: string | number;
+    [key: string]: string | number | boolean | string[]| number[];
 }
 
 /**
@@ -21,7 +22,7 @@ interface RequestParams {
  * @returns Promise<any>
  */
 export async function makeApiRequest(
-    method: 'GET' | 'POST',
+    method: 'GET' | 'POST' | 'PATCH' | 'DELETE',
     endpoint: string,
     token: string,
     params: RequestParams = {},
@@ -104,4 +105,57 @@ export async function getGroupDetailList(group_id: string, token: string): Promi
 export async function getSpaceDetail(token: string): Promise<any> {
     const detailInfoList = await makeApiRequest("GET", "https://radar.rivers.chaitin.cn/api/user/v1/info", token, {});
     return detailInfoList.data;
+}
+
+// 暂停（不删除）或恢复网站监控
+
+export async function changeWebsiteMonitorStatus(website_uuids: string[], token: string,status: boolean): Promise<any> {
+    const res = await makeApiRequest("PATCH", "https://radar.rivers.chaitin.cn/api/asset/v1/website/monitor", token, {
+        uuids: website_uuids,
+        is_monitor: status // false : stop monitor, true: start monitor
+    });
+    return res.data;
+}
+
+// 删除监控
+export async function deleteWebsiteMonitor(website_uuid: string, token: string): Promise<any> {
+    const res = await makeApiRequest("DELETE", "https://radar.rivers.chaitin.cn/api/asset/v1/website/delete", token, {
+        uuid: website_uuid,
+    });
+    return res.data;
+}
+
+// 获取 agent 列表
+export async function getAgentList(token: string): Promise<any> {
+    const res = await makeApiRequest("GET", "https://radar.rivers.chaitin.cn/api/asset/v1/agent/list", token, {});
+    return res.data;
+}
+// 添加监控
+export async function addWebsiteMonitor(website_url: string, health_check_url: string, agent_uuid: string, group_id: number, token: string): Promise<any> {
+    const res = await makeApiRequest("POST", "https://radar.rivers.chaitin.cn/api/asset/v1/website/add", token, {
+        addr: website_url,
+        comments: [],
+        agent_uuid: agent_uuid,
+        health_check_addr: health_check_url,
+        headers: [],
+        group_list: [group_id]
+    });
+    return res;
+}
+
+// 添加分组
+export async function addGroup(group_name: string, parent_id :number,token: string): Promise<any> {
+    const res = await makeApiRequest("POST", "https://radar.rivers.chaitin.cn/api/asset/v1/group/add", token, {
+        name: group_name,
+        parent_id: parent_id
+    });
+    return res;
+}
+
+// 删除分组
+export async function deleteGroup(group_id: number,token: string): Promise<any> {
+    const res = await makeApiRequest("DELETE", "https://radar.rivers.chaitin.cn/api/asset/v1/group/delete", token, {
+        id: group_id,
+    });
+    return res;
 }

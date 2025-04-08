@@ -8,7 +8,6 @@ async function main() {
   const server: McpServer = createServer();
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.debug("百川网站安全监测 running on stdio");
 }
 
 main().catch((error) => {
