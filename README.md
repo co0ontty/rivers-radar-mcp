@@ -4,7 +4,7 @@
 </p>
 
 <h4 align="center">
-  一款专门为有站点检测需求的用户打造的监测工具，能够有效地监测用户配置的站点可用性、SSL证书合法性、过期时间以及网站路径扫描等功能。
+  一款专门为有站点检测需求的用户打造的监测工具，能够有效地监测用户配置的站点可用性、SSL证书合法性、过期时间以及网站路径扫描等功能。  
 A monitoring tool specifically designed for users with site detection needs, capable of effectively monitoring site availability, SSL certificate validity, expiration times, and website path scanning functionality for user-configured sites.
 </h4>
 
@@ -22,13 +22,15 @@ Based on large language models, provides data querying, analysis and operation c
 
 ## 核心能力 / Core Capabilities
 
-• 网站资产分组查询  
-• 网站资产监控状态查询  
-• 配置信息查询  
+• 系统配置信息查看 - 查看ID、授权、余额、套餐状态等系统信息  
+• 网站资产分组查询 - 获取网站分组列表目录树及分组详情  
+• 网站监控状态管理 - 暂停/恢复/添加/删除网站监控  
+• Agent管理 - 获取可用Agent列表  
 
-• Website Asset Groups: Query website asset grouping information  
-• Asset Monitoring Status: Check real-time monitoring status of website assets  
-• Configuration Information: Query system configuration details and settings  
+• System Configuration: View system info including ID, authorization, balance, plan status  
+• Website Asset Groups: Query website grouping tree and group details  
+• Monitoring Management: Pause/resume/add/remove website monitoring  
+• Agent Management: Get available agent list  
 
 ## 快速开始 / Quick Start
 ```json
